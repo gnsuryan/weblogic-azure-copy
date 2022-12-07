@@ -99,8 +99,8 @@
     },
     "resources": [
         {
-            "apiVersion": "${azure.apiVersion}",
-            "name": "${cluster.dns.start}",
+            "apiVersion": "2020-06-01",
+            "name": "cluster.dns.start",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",
@@ -113,7 +113,7 @@
             }
         },
         {
-            "apiVersion": "${azure.apiVersion}",
+            "apiVersion": "2020-06-01",
             "type": "Microsoft.Resources/deployments",
             "name": "createDNSZone",
             "condition": "[not(parameters('hasDNSZones'))]",
@@ -149,7 +149,7 @@
             }
         },
         {
-            "apiVersion": "${azure.apiVersion}",
+            "apiVersion": "2020-06-01",
             "type": "Microsoft.Resources/deployments",
             "name": "updateDNSZone",
             "condition": "[parameters('hasDNSZones')]",
@@ -197,8 +197,8 @@
             }
         },
         {
-            "apiVersion": "${azure.apiVersion}",
-            "name": "${cluster.dns.end}",
+            "apiVersion": "2020-06-01",
+            "name": "cluster.dns.end",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",
