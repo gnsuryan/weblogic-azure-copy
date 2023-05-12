@@ -48,6 +48,13 @@
                 "description": "Azure DNS for Application Gateway"
             }
         },
+        "enableCookieBasedAffinity": {
+            "defaultValue": true,
+            "type": "bool",
+            "metadata": {
+                "description": "true to enable cookie based affinity."
+            }
+        },
         "gatewayPublicIPAddressName": {
             "defaultValue": "gwip",
             "type": "string",
@@ -197,6 +204,21 @@
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "${azure.apiVersion}",
+            "name": "${cluster.appgateway.custom.certificate}",
+            "condition": "[not(equals(parameters('appGatewayCertificateOption'), variables('const_appGatewaySSLCertOptionGenerateCert')))]",
+            "properties": {
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "resources": [
+                    ]
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "${azure.apiVersion}",
             "name": "appGatewaywithExistingKeyVaultTemplate",
             "condition": "[equals(parameters('appGatewayCertificateOption'), variables('const_appGatewaySSLCertOptionHaveKeyVault'))]",
             "properties": {
@@ -236,6 +258,9 @@
                     },
                     "dnsNameforApplicationGateway": {
                         "value": "[parameters('domainLabelforApplicationGateway')]"
+                    },
+                    "enableCookieBasedAffinity": {
+                        "value": "[parameters('enableCookieBasedAffinity')]"
                     },
                     "gatewayPublicIPAddressName": {
                         "value": "[parameters('gatewayPublicIPAddressName')]"
@@ -319,6 +344,9 @@
                     "dnsNameforApplicationGateway": {
                         "value": "[parameters('domainLabelforApplicationGateway')]"
                     },
+                    "enableCookieBasedAffinity": {
+                        "value": "[parameters('enableCookieBasedAffinity')]"
+                    },
                     "gatewayPublicIPAddressName": {
                         "value": "[parameters('gatewayPublicIPAddressName')]"
                     },
@@ -395,6 +423,9 @@
                     },
                     "dnsNameforApplicationGateway": {
                         "value": "[parameters('domainLabelforApplicationGateway')]"
+                    },
+                    "enableCookieBasedAffinity": {
+                        "value": "[parameters('enableCookieBasedAffinity')]"
                     },
                     "gatewayPublicIPAddressName": {
                         "value": "[parameters('gatewayPublicIPAddressName')]"
