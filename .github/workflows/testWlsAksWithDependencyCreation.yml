@@ -281,6 +281,8 @@ jobs:
                         s/#dbUser#/${dbAdminUser}@${dbName}/g; \
                         s/#dsConnectionURL#/jdbc:postgresql:\/\/${dbName}.postgres.database.azure.com:5432\/postgres/g" \
                         weblogic-azure/weblogic-azure-aks/src/test/setupWlsAksParameters.jsonc
+                echo "display contents of parameters file for debugging"
+                cat weblogic-azure/weblogic-azure-aks/src/test/setupWlsAksParameters.jsonc
             - name: Deploy WebLogic Server Cluster Domain offer
               id: deploy-wls-cluster
               uses: azure/CLI@v1
