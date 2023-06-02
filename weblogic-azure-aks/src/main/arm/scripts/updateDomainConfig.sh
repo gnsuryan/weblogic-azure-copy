@@ -221,7 +221,7 @@ cat <<EOF >>$filePath
 
   # The name of each Cluster resource
   clusters:
-  - name: cluster-1
+  - name: ${WLS_DOMAIN_UID}-cluster-1
 
   # Change the restartVersion to force the introspector job to rerun
   # and apply any new model configuration, to also force a subsequent
