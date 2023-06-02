@@ -260,7 +260,7 @@ jobs:
                 inlineScript: |
                     echo "create resource group" ${{ env.resourceGroupForWlsAks }}
                     az group create --verbose --name ${{ env.resourceGroupForWlsAks }} --location ${{ env.location }}
-            - name: Checkout Azure-Samples/cargotracker-azure
+            - name: Checkout Azure-Samples/cargotracker-wls-aks
               uses: actions/checkout@v2
               with:
                 repository: Azure-Samples/cargotracker-wls-aks

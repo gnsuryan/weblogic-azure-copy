@@ -34,7 +34,7 @@ cat <<EOF >$filePath
 # in https://github.com/oracle/weblogic-kubernetes-operator.
 # This is an example of how to define a Domain resource.
 #
-apiVersion: "weblogic.oracle/v8"
+apiVersion: "weblogic.oracle/v9"
 kind: Domain
 metadata:
   name: "${WLS_DOMAIN_UID}"
@@ -283,3 +283,22 @@ EOF
   index=$((index+1))
   done
 fi
+
+cat <<EOF >>$filePath
+---
+
+apiVersion: "weblogic.oracle/v1"
+kind: Cluster
+metadata:
+  name: ${WLS_DOMAIN_UID}-cluster-1
+  # Update this with the namespace your domain will run in:
+  namespace: ${WLS_DOMAIN_UID}-ns
+  labels:
+    # Update this with the `domainUID` of your domain:
+    weblogic.domainUID: ${WLS_DOMAIN_UID}
+spec:
+  # This must match a cluster name that is  specified in the WebLogic configuration
+  clusterName: cluster-1
+  # The number of managed servers to start for this cluster
+  replicas: 2
+EOF

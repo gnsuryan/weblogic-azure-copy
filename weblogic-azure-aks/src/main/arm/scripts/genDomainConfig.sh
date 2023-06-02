@@ -33,7 +33,7 @@ cat <<EOF >$filePath
 # in https://github.com/oracle/weblogic-kubernetes-operator.
 # This is an example of how to define a Domain resource.
 #
-apiVersion: "weblogic.oracle/v8"
+apiVersion: "weblogic.oracle/v9"
 kind: Domain
 metadata:
   name: "${WLS_DOMAIN_UID}"
@@ -49,7 +49,7 @@ spec:
   # the image for 'Model in Image' domains.
   domainHome: /u01/domains/${WLS_DOMAIN_UID}
 
-  # The WebLogic Server Docker image that the Operator uses to start the domain
+  # The WebLogic Server image that the Operator uses to start the domain
   image: "${wlsImagePath}"
 
   # Defaults to "Always" if image tag (version) is ':latest'
@@ -252,4 +252,22 @@ cat <<EOF >>$filePath
     # (the model yaml in the optional configMap or in the image)
     #secrets:
     #- ${WLS_DOMAIN_UID}-datasource-secret
+
+---
+
+apiVersion: "weblogic.oracle/v1"
+kind: Cluster
+metadata:
+  name: ${WLS_DOMAIN_UID}-cluster-1
+  # Update this with the namespace your domain will run in:
+  namespace: ${WLS_DOMAIN_UID}-ns
+  labels:
+    # Update this with the `domainUID` of your domain:
+    weblogic.domainUID: ${WLS_DOMAIN_UID}
+spec:
+  # This must match a cluster name that is  specified in the WebLogic configuration
+  clusterName: cluster-1
+  # The number of managed servers to start for this cluster
+  replicas: 2
+
 EOF
