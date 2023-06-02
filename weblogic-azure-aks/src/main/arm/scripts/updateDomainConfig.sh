@@ -294,7 +294,7 @@ metadata:
   # Update this with the namespace your domain will run in:
   namespace: ${WLS_DOMAIN_UID}-ns
   labels:
-    # Update this with the `domainUID` of your domain:
+    # Update this with the domainUID of your domain:
     weblogic.domainUID: ${WLS_DOMAIN_UID}
 spec:
   # This must match a cluster name that is  specified in the WebLogic configuration
