@@ -195,10 +195,6 @@ fi
 cat <<EOF >>$filePath
   # The desired behavior for starting the domain's administration server.
   adminServer:
-    # The serverStartState legal values are "RUNNING" or "ADMIN"
-    # "RUNNING" means the listed server will be started up to "RUNNING" mode
-    # "ADMIN" means the listed server will be start up to "ADMIN" mode
-    serverStartState: "RUNNING"
     # Setup a Kubernetes node port for the administration server default channel
     #adminService:
     #  channels:
@@ -208,27 +204,9 @@ cat <<EOF >>$filePath
   # The number of admin servers to start for unlisted clusters
   replicas: 1
 
-  # The desired behavior for starting a specific cluster's member servers
+  # The name of each Cluster resource
   clusters:
-  - clusterName: cluster-1
-    serverStartState: "RUNNING"
-    serverPod:
-      # Instructs Kubernetes scheduler to prefer nodes for new cluster members where there are not
-      # already members of the same cluster.
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 100
-              podAffinityTerm:
-                labelSelector:
-                  matchExpressions:
-                    - key: "weblogic.clusterName"
-                      operator: In
-                      values:
-                        - \$(CLUSTER_NAME)
-                topologyKey: "kubernetes.io/hostname"
-    # The number of managed servers to start for unlisted clusters
-    replicas: ${WLS_APP_REPLICAS}
+  - name: cluster-1
 
   # Change the restartVersion to force the introspector job to rerun
   # and apply any new model configuration, to also force a subsequent
