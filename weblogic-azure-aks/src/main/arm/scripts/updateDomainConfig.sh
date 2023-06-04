@@ -70,8 +70,8 @@ spec:
   # Set which WebLogic Servers the Operator will start
   # - "Never" will not start any server in the domain
   # - "AdminOnly" will start up only the administration server (no managed servers will be started)
-  # - "ifNeeded" will start all non-clustered servers, including the administration server, and clustered servers up to their replica count.
-  serverStartPolicy: ifNeeded
+  # - "IfNeeded" will start all non-clustered servers, including the administration server, and clustered servers up to their replica count.
+  serverStartPolicy: IfNeeded
 EOF
 
 if [[ "${logHomeEnabled}" == "true" ]];then
